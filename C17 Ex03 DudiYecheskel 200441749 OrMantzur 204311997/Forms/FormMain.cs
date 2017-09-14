@@ -25,7 +25,7 @@ namespace C17_Ex01_Dudi_200441749_Or_204311997.Forms
         // ================================================ general form methods ================================================
         protected override void OnShown(EventArgs i_Args)
         {
-            base.OnShown(i_Args);
+            base.OnShown(i_Args);            
             this.initMainForm();
         }
 

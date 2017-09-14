@@ -49,23 +49,23 @@
             this.dataGridView.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.dataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridView.Location = new System.Drawing.Point(0, 35);
-            this.dataGridView.Margin = new System.Windows.Forms.Padding(2);
+            this.dataGridView.Location = new System.Drawing.Point(0, 54);
             this.dataGridView.MultiSelect = false;
             this.dataGridView.Name = "dataGridView";
             this.dataGridView.ReadOnly = true;
             this.dataGridView.RowHeadersVisible = false;
             this.dataGridView.RowTemplate.Height = 28;
-            this.dataGridView.Size = new System.Drawing.Size(1071, 532);
+            this.dataGridView.Size = new System.Drawing.Size(1168, 396);
             this.dataGridView.TabIndex = 4;
             this.dataGridView.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView_CellDoubleClick);
             this.dataGridView.CellMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridView_CellMouseClick);
             // 
             // buttonFetchData
             // 
-            this.buttonFetchData.Location = new System.Drawing.Point(167, 9);
+            this.buttonFetchData.Location = new System.Drawing.Point(250, 14);
+            this.buttonFetchData.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.buttonFetchData.Name = "buttonFetchData";
-            this.buttonFetchData.Size = new System.Drawing.Size(75, 23);
+            this.buttonFetchData.Size = new System.Drawing.Size(112, 35);
             this.buttonFetchData.TabIndex = 0;
             this.buttonFetchData.Text = "Fetch Data";
             this.buttonFetchData.UseVisualStyleBackColor = true;
@@ -75,9 +75,10 @@
             // 
             this.comboBoxDataTableBindingSelection.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxDataTableBindingSelection.FormattingEnabled = true;
-            this.comboBoxDataTableBindingSelection.Location = new System.Drawing.Point(3, 9);
+            this.comboBoxDataTableBindingSelection.Location = new System.Drawing.Point(4, 14);
+            this.comboBoxDataTableBindingSelection.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.comboBoxDataTableBindingSelection.Name = "comboBoxDataTableBindingSelection";
-            this.comboBoxDataTableBindingSelection.Size = new System.Drawing.Size(158, 21);
+            this.comboBoxDataTableBindingSelection.Size = new System.Drawing.Size(235, 28);
             this.comboBoxDataTableBindingSelection.TabIndex = 1;
             // 
             // timerDataTables
@@ -91,38 +92,42 @@
             this.panelTop.Controls.Add(this.comboBoxDataTableBindingSelection);
             this.panelTop.Dock = System.Windows.Forms.DockStyle.Top;
             this.panelTop.Location = new System.Drawing.Point(0, 0);
+            this.panelTop.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.panelTop.Name = "panelTop";
-            this.panelTop.Size = new System.Drawing.Size(1071, 35);
+            this.panelTop.Size = new System.Drawing.Size(1168, 54);
             this.panelTop.TabIndex = 6;
             // 
             // toolStrip1
             // 
             this.toolStrip1.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.toolStrip1.ImageScalingSize = new System.Drawing.Size(24, 24);
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripStatusLabel});
-            this.toolStrip1.Location = new System.Drawing.Point(0, 542);
+            this.toolStrip1.Location = new System.Drawing.Point(0, 425);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(1071, 25);
+            this.toolStrip1.Padding = new System.Windows.Forms.Padding(0, 0, 2, 0);
+            this.toolStrip1.Size = new System.Drawing.Size(1168, 25);
             this.toolStrip1.TabIndex = 7;
             this.toolStrip1.Text = "toolStrip1";
             // 
             // toolStripStatusLabel
             // 
             this.toolStripStatusLabel.Name = "toolStripStatusLabel";
-            this.toolStripStatusLabel.Size = new System.Drawing.Size(112, 22);
+            this.toolStripStatusLabel.Size = new System.Drawing.Size(169, 25);
             this.toolStripStatusLabel.Text = "toolStripStatusLabel";
             this.toolStripStatusLabel.Visible = false;
             // 
             // TabDataTables
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
             this.Controls.Add(this.toolStrip1);
             this.Controls.Add(this.dataGridView);
             this.Controls.Add(this.panelTop);
+            this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "TabDataTables";
-            this.Size = new System.Drawing.Size(1071, 567);
+            this.Size = new System.Drawing.Size(1168, 450);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).EndInit();
             this.panelTop.ResumeLayout(false);
             this.toolStrip1.ResumeLayout(false);

@@ -8,12 +8,15 @@
 using System;
 using System.Data;
 using FacebookWrapper.ObjectModel;
+using System.Collections.Generic;
 
 namespace C17_Ex01_Dudi_200441749_Or_204311997.DataTables
 {
     public abstract class FacebookDataTable : IDisplayableObjectHolder
     {
         protected readonly object r_PopulateRowsLock = new object();
+
+        private readonly FacebookObjectDisplayer r_ObjectDisplayer = new FacebookObjectDisplayer();
 
         public event Action PopulateRowsCompleted;
 
@@ -56,6 +59,11 @@ namespace C17_Ex01_Dudi_200441749_Or_204311997.DataTables
                     FacebookApplication.StartThread(() => PopulateRowsImplementation(i_Collection));
                 }
             }
+        }
+
+        public void DisplaySelectedObject()
+        {
+            r_ObjectDisplayer.DisplayObject(this);
         }
 
         protected abstract void PopulateRowsImplementation(FacebookObjectCollection<FacebookObject> i_Collection);

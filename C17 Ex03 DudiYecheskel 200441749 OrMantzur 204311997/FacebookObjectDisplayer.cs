@@ -15,10 +15,9 @@ namespace C17_Ex01_Dudi_200441749_Or_204311997
     using System;
     using C17_Ex01_Dudi_200441749_Or_204311997.Forms;
 
-    public static class FacebookObjectDisplayer
+    public class FacebookObjectDisplayer
     {
-        // Extension method
-        public static void DisplayObject(this IDisplayableObjectHolder i_DisplayableObjectHolderObjectHolder)
+        public void DisplayObject(IDisplayableObjectHolder i_DisplayableObjectHolderObjectHolder)
         {
             object objectToDisplay = i_DisplayableObjectHolderObjectHolder.ObjectToDisplay;
 

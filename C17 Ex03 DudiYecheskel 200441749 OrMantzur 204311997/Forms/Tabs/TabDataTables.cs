@@ -115,8 +115,8 @@ namespace C17_Ex01_Dudi_200441749_Or_204311997.Forms.Tabs
         {
             object selectedObject = i_RowSelected.Cells["ObjectDisplayed"].Value;
 
-            this.m_DataTableBindedToView.ObjectToDisplay = selectedObject;
-            this.m_DataTableBindedToView.DisplayObject();
+            m_DataTableBindedToView.ObjectToDisplay = selectedObject;
+            m_DataTableBindedToView.DisplaySelectedObject();
         }
 
         private void refreshDataGridView()
