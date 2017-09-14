@@ -23,7 +23,6 @@ namespace C17_Ex01_Dudi_200441749_Or_204311997.Forms
         {
             this.InitializeComponent();
             this.r_Post = i_Post;
-            this.postsBindingSource.DataSource = i_Post;
         }
 
         private void initNonBindedComponents()
@@ -61,6 +60,7 @@ namespace C17_Ex01_Dudi_200441749_Or_204311997.Forms
         protected override void OnShown(EventArgs i_Args)
         {
             base.OnShown(i_Args);
+            this.postsBindingSource.DataSource = r_Post;
             this.m_InitNonBindedComponentsThread = FacebookApplication.StartThread(this.initNonBindedComponents);
         }
 
