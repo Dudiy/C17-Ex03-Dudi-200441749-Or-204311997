@@ -17,7 +17,7 @@ namespace C17_Ex01_Dudi_200441749_Or_204311997
 
     public class FacebookObjectDisplayer
     {
-        public void DisplayObject(IDisplayableObjectHolder i_DisplayableObjectHolderObjectHolder)
+        public void DisplayObject(IDisplayableObjectHolder i_DisplayableObjectHolder)
         {
             object objectToDisplay = i_DisplayableObjectHolder.ObjectToDisplay;
 

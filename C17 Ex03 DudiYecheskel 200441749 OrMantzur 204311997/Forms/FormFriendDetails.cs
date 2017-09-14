@@ -23,16 +23,16 @@ namespace C17_Ex01_Dudi_200441749_Or_204311997.Forms
 
         protected override void OnShown(EventArgs i_Args)
         {
-            base.OnLoad(i_Args);
-            this.userBindingSource.DataSource = this.r_Friend;
-            this.labelLikedPage.Text = string.Format(
+            base.OnShown(i_Args);
+            labelLikedPage.Text = string.Format(
 @"Pages that {0} liked",
-this.r_Friend.FirstName);
-            if (!string.IsNullOrEmpty(this.labelBirthday.Text))
+r_Friend.FirstName);
+            if (!string.IsNullOrEmpty(labelBirthday.Text))
             {
-                this.labelBirthdayTitle.Visible = false;
-                this.labelBirthday.Visible = false;
+                labelBirthdayTitle.Visible = false;
+                labelBirthday.Visible = false;
             }
+            userBindingSource.DataSource = r_Friend;
         }
 
         private void linkLabelLikedPageUrl_LinkClicked(object i_Sender, LinkLabelLinkClickedEventArgs i_Args)
