@@ -31,8 +31,8 @@ namespace C17_Ex01_Dudi_200441749_Or_204311997.Forms.Tabs
 
         private void initializeTab()
         {
-            this.m_DataTableManager = new FacebookDataTableManager();
-            this.initComboBoxDataTableBindingSelection();
+            m_DataTableManager = new FacebookDataTableManager(() => MessageBox.Show("All rows populated"));    
+            initComboBoxDataTableBindingSelection();
         }
 
         private void initComboBoxDataTableBindingSelection()
@@ -43,17 +43,19 @@ namespace C17_Ex01_Dudi_200441749_Or_204311997.Forms.Tabs
 
         private void fetchDataForDataTablesTab()
         {
-            if (this.comboBoxDataTableBindingSelection.SelectedItem != null)
+            if (comboBoxDataTableBindingSelection.SelectedItem != null)
             {
-                this.dataGridView.DataSource = null;
-                this.m_DataTableBindedToView = (FacebookDataTable)this.comboBoxDataTableBindingSelection.SelectedItem;
+                dataGridView.DataSource = null;
+                m_DataTableBindedToView = (FacebookDataTable)comboBoxDataTableBindingSelection.SelectedItem;
+                dataGridView.DataSource = m_DataTableBindedToView.DataTable;
+
                 if (m_DataTableBindedToView.DataTable.Rows.Count == 0 || m_DataTableBindedToView is FacebookPhotosDataTable)
                 {
                     try
                     {
-                        FacebookObjectCollection<FacebookObject> collection = this.fetchCollectionWithAdapter(this.m_DataTableBindedToView.GetType());
-                        this.m_DataTableBindedToView.PopulateRows(collection);
-                        this.timerDataTables.Start();
+                        FacebookObjectCollection<FacebookObject> collection = fetchCollectionWithAdapter(m_DataTableBindedToView.GetType());
+                        m_DataTableBindedToView.PopulateRows(collection);
+                        timerDataTables.Start();
                     }
                     catch (PopulateRowsException e)
                     {
@@ -65,13 +67,12 @@ namespace C17_Ex01_Dudi_200441749_Or_204311997.Forms.Tabs
                     }
                 }
 
-                this.dataGridView.DataSource = this.m_DataTableBindedToView.DataTable;
-                if (this.dataGridView.Columns["ObjectDisplayed"] != null)
+                if (dataGridView.Columns["ObjectDisplayed"] != null)
                 {
-                    this.dataGridView.Columns["ObjectDisplayed"].Visible = false;
+                    dataGridView.Columns["ObjectDisplayed"].Visible = false;
                 }
 
-                if (this.dataGridView.Columns.Count == 0)
+                if (dataGridView.Columns.Count == 0)
                 {
                     MessageBox.Show("The requested table could not be loaded, please try again");
                 }
