@@ -11,7 +11,7 @@ using FacebookWrapper.ObjectModel;
 
 namespace C17_Ex01_Dudi_200441749_Or_204311997.DataTables
 {
-    public abstract class FacebookDataTable : IDisplayable
+    public abstract class FacebookDataTable : IDisplayableObjectHolder
     {
         protected readonly object r_PopulateRowsLock = new object();
 

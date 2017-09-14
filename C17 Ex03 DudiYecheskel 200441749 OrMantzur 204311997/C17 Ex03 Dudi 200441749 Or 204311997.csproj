@@ -53,6 +53,7 @@
   <ItemGroup>
     <Compile Include="Adapter\eFacebookCollectionType.cs" />
     <Compile Include="Adapter\IFacebookCollection.cs" />
+    <Compile Include="Forms\DetailsFormFactory.cs" />
     <Compile Include="Forms\FormAlbumsSelector.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -126,7 +127,7 @@
     <Compile Include="ControlsAndProxies\GrowingPictureBoxProxy.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="IDisplayable.cs" />
+    <Compile Include="IDisplayableObjectHolder.cs" />
     <Compile Include="Forms\FormPhotoDetails.cs">
       <SubType>Form</SubType>
     </Compile>

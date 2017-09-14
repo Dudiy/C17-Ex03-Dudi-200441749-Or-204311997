@@ -12,37 +12,24 @@ using FacebookWrapper.ObjectModel;
 
 namespace C17_Ex01_Dudi_200441749_Or_204311997
 {
+    using System;
     using C17_Ex01_Dudi_200441749_Or_204311997.Forms;
 
     public static class FacebookObjectDisplayer
     {
         // Extension method
-        public static void DisplayObject(this IDisplayable i_ObjectToDisplay)
+        public static void DisplayObject(this IDisplayableObjectHolder i_DisplayableObjectHolderObjectHolder)
         {
-            object objectToDisplay = i_ObjectToDisplay.ObjectToDisplay;
-            if (objectToDisplay is Photo)
+            object objectToDisplay = i_DisplayableObjectHolderObjectHolder.ObjectToDisplay;
+
+            try
             {
-                FormPhotoDetails formPhotoDetails = new FormPhotoDetails(objectToDisplay as Photo);
-                formPhotoDetails.Show();
+                Form formToDisplay = DetailsFormFactory.CreateDetailesForm(objectToDisplay);
+                formToDisplay.Show();
             }
-            else if (objectToDisplay is User)
+            catch (Exception ex)
             {
-                FormFriendDetails formFriendDetails = new FormFriendDetails(objectToDisplay as User);
-                formFriendDetails.Show();
-            }
-            else if (objectToDisplay is Page)
-            {
-                FormPictureFrame formPictureFrame = new FormPictureFrame(((Page)objectToDisplay).PictureLargeURL);
-                formPictureFrame.Show();
-            }
-            else if (objectToDisplay is Post)
-            {
-                FormPostDetails formPostDetails = new FormPostDetails((Post)objectToDisplay);
-                formPostDetails.Show();
-            }
-            else
-            {
-                MessageBox.Show(string.Format("Showing toString(): {0}", objectToDisplay.ToString()));
+                MessageBox.Show(string.Format("error while creating details form: {0}", ex.Message));
             }
         }
     }
