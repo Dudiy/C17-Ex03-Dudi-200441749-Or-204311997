@@ -16,7 +16,7 @@ namespace C17_Ex01_Dudi_200441749_Or_204311997.DataTables
     {
         protected readonly object r_PopulateRowsLock = new object();
 
-        private readonly FacebookObjectDisplayer r_ObjectDisplayer = new FacebookObjectDisplayer();
+        private readonly FacebookObjectDisplayer r_FacebookObjectDisplayer = new FacebookObjectDisplayer();
 
         public event Action PopulateRowsCompleted;
 
@@ -63,7 +63,7 @@ namespace C17_Ex01_Dudi_200441749_Or_204311997.DataTables
 
         public void DisplaySelectedObject()
         {
-            r_ObjectDisplayer.DisplayObject(this);
+            r_FacebookObjectDisplayer.DisplayObject(this);
         }
 
         protected abstract void PopulateRowsImplementation(FacebookObjectCollection<FacebookObject> i_Collection);

@@ -58,34 +58,104 @@ namespace C17_Ex01_Dudi_200441749_Or_204311997
             }
         }
 
-        public FacebookObjectCollection<Photo> PhotosTaggedTogether(FacebookObjectCollection<Photo> i_PhotosTaggedIn)
-        {
-            FacebookObjectCollection<Photo> photosTaggedTogether = new FacebookObjectCollection<Photo>();
 
-            foreach (Photo photo in i_PhotosTaggedIn)
+
+
+
+        // ======================================================= Strategy ===========================================
+
+        // by default we get back all photos
+        public Func<Photo, bool> FilterPhoto { get; set; } = (photo) => true;
+
+        public FacebookObjectCollection<Photo> GetFilterPhotos(FacebookObjectCollection<Album> i_Album)
+        {
+            FacebookObjectCollection<Photo> filterPhotos = new FacebookObjectCollection<Photo>();
+
+            if(i_Album.Count > 0)
             {
-                if (photo.Tags != null && photo.Tags.Find(tag => tag.User.Id == Friend.Id) != null)
+                foreach (Album album in i_Album)
                 {
-                    photosTaggedTogether.Add(photo);
+                    FacebookObjectCollection<Photo> filterPhotosInAlbum = GetFilterPhotos(album.Photos);
+                    foreach (Photo photo in filterPhotosInAlbum)
+                    {
+                        filterPhotos.Add(photo);
+                    }
                 }
-            }            
-
-            return photosTaggedTogether;
-        }
-
-        public Photo GetMostRecentPhotoTaggedTogether(FacebookObjectCollection<Photo> i_PhotosTaggedTogether)
-        {
-            Photo mostRecentPhoto;
-
-            using (IEnumerator<Photo> enumerator =
-                i_PhotosTaggedTogether.OrderByDescending(i_Photo => i_Photo.CreatedTime).GetEnumerator())
-            {
-                enumerator.MoveNext();
-                mostRecentPhoto = enumerator.Current;
             }
 
-            return mostRecentPhoto;
+            return filterPhotos;
         }
+
+        public FacebookObjectCollection<Photo> GetFilterPhotos(FacebookObjectCollection<Photo> i_Photos)
+        {
+            FacebookObjectCollection<Photo> filterPhotos = new FacebookObjectCollection<Photo>();
+
+            foreach (Photo photo in i_Photos)
+            {
+                if (FilterPhoto.Invoke(photo))
+                {
+                    filterPhotos.Add(photo);
+                }
+            }
+
+            return filterPhotos;
+        }
+
+        //// good
+        //public FacebookObjectCollection<Photo> PhotosTaggedTogether(FacebookObjectCollection<Photo> i_PhotosTaggedIn)
+        //{
+        //    FacebookObjectCollection<Photo> photosTaggedTogether = new FacebookObjectCollection<Photo>();
+
+        //    foreach (Photo photo in i_PhotosTaggedIn)
+        //    {
+
+        //        // TODO 
+        //        //i_PromoteProgressBar.Invoke();
+
+
+        //        if (photo.Tags != null && photo.Tags.Find(tag => tag.User.Id == Friend.Id) != null)
+        //        {
+        //            photosTaggedTogether.Add(photo);
+        //        }
+        //    }
+
+        //    return photosTaggedTogether;
+        //}
+
+        //// good
+        //public FacebookObjectCollection<Photo> GetPhotosFromAlbumsUserIsTaggedIn(User i_Tagged, FacebookObjectCollection<Album> i_Albums)
+        //{
+        //    FacebookObjectCollection<Photo> photos = new FacebookObjectCollection<Photo>();
+
+        //    if (i_Albums.Count > 0)
+        //    {
+        //        foreach (Album album in i_Albums)
+        //        {
+        //            foreach (Photo photo in album.Photos)
+        //            {
+
+        //                if (PhotoFilter.Invoke(photo) != null)
+        //                {
+        //                    PhotosFriendLiked.Add(photo);
+        //                }
+
+        //                //if (photo.Tags != null && photo.Tags.Find(tag => tag.User.Id == i_Tagged.Id) != null)
+        //                //{
+        //                //    photos.Add(photo);
+        //                //}
+        //            }
+        //        }
+        //    }
+
+        //    return photos;
+        //}
+
+
+        // ======================================================= END ===========================================
+
+
+
+
 
         public void CountNumberOfPhotosFriendLiked(Action i_PromoteProgressBar)
         {
@@ -149,6 +219,21 @@ namespace C17_Ex01_Dudi_200441749_Or_204311997
             }
         }
 
+        // IEnumerator
+        public Photo GetMostRecentPhotoTaggedTogether(FacebookObjectCollection<Photo> i_PhotosTaggedTogether)
+        {
+            Photo mostRecentPhoto;
+
+            using (IEnumerator<Photo> enumerator =
+                i_PhotosTaggedTogether.OrderByDescending(i_Photo => i_Photo.CreatedTime).GetEnumerator())
+            {
+                enumerator.MoveNext();
+                mostRecentPhoto = enumerator.Current;
+            }
+
+            return mostRecentPhoto;
+        }
+
         private void fetchComplete()
         {
             if (m_FinishedFetchingComments && m_FinishedFetchingLikes)
@@ -158,27 +243,6 @@ namespace C17_Ex01_Dudi_200441749_Or_204311997
                     FinishedFetchingLikesAndComments.Invoke();
                 }
             }
-        }
-
-        public FacebookObjectCollection<Photo> GetPhotosFromAlbumsUserIsTaggedIn(User i_Tagged, FacebookObjectCollection<Album> i_Albums)
-        {
-            FacebookObjectCollection<Photo> photos = new FacebookObjectCollection<Photo>();
-
-            if (i_Albums.Count > 0)
-            {
-                foreach (Album album in i_Albums)
-                {
-                    foreach (Photo photo in album.Photos)
-                    {
-                        if (photo.Tags != null && photo.Tags.Find(tag => tag.User.Id == i_Tagged.Id) != null)
-                        {
-                            photos.Add(photo);
-                        }
-                    }
-                }
-            }
-
-            return photos;
         }
     }
 }
