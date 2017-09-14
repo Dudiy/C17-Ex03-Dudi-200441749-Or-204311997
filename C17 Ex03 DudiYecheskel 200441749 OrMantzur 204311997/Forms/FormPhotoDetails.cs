@@ -24,13 +24,13 @@ namespace C17_Ex01_Dudi_200441749_Or_204311997.Forms
         {
             this.InitializeComponent();
             this.r_Photo = i_Photo;
-            this.initDetailsPane();
-            this.pictureBox.LoadAsync(this.r_Photo.PictureNormalURL);
         }
 
         protected override void OnShown(EventArgs i_Args)
         {
             base.OnShown(i_Args);
+            this.initDetailsPane();
+            this.pictureBox.LoadAsync(this.r_Photo.PictureNormalURL);
             this.m_LikesCounterThread = FacebookApplication.StartThread(this.initLikes);
             this.m_CommentsCounterThread = FacebookApplication.StartThread(this.initComments);
         }

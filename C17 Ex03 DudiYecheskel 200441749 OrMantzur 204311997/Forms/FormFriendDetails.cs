@@ -19,12 +19,12 @@ namespace C17_Ex01_Dudi_200441749_Or_204311997.Forms
         {
             this.InitializeComponent();
             this.r_Friend = i_Friend;
-            this.userBindingSource.DataSource = this.r_Friend;
         }
 
-        protected override void OnLoad(EventArgs i_Args)
+        protected override void OnShown(EventArgs i_Args)
         {
             base.OnLoad(i_Args);
+            this.userBindingSource.DataSource = this.r_Friend;
             this.labelLikedPage.Text = string.Format(
 @"Pages that {0} liked",
 this.r_Friend.FirstName);
