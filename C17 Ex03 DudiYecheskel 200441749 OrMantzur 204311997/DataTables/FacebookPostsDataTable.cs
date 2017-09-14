@@ -39,11 +39,11 @@ namespace C17_Ex01_Dudi_200441749_Or_204311997.DataTables
                                 post.LikedBy.Count,
                                 post.Comments.Count);
                         }
+                    }
 
-                        if (NotifyAbstractParentPopulateRowsCompleted != null)
-                        {
-                            NotifyAbstractParentPopulateRowsCompleted.Invoke();
-                        }
+                    if (NotifyAbstractParentPopulateRowsCompleted != null)
+                    {
+                        NotifyAbstractParentPopulateRowsCompleted.Invoke();
                     }
                 }
                 catch (Exception e)

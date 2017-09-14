@@ -15,7 +15,7 @@ namespace C17_Ex01_Dudi_200441749_Or_204311997.DataTables
     {
         protected readonly object r_PopulateRowsLock = new object();
 
-        private event Action PopulateRowsCompleted;
+        public event Action PopulateRowsCompleted;
 
         protected readonly Action NotifyAbstractParentPopulateRowsCompleted;
 

@@ -35,11 +35,11 @@ namespace C17_Ex01_Dudi_200441749_Or_204311997.DataTables
                             friend.LastName,
                             friend.Gender != null ? friend.Gender.ToString() : string.Empty);
                     }
+                }
 
-                    if (NotifyAbstractParentPopulateRowsCompleted != null)
-                    {
-                        NotifyAbstractParentPopulateRowsCompleted.Invoke();
-                    }
+                if (NotifyAbstractParentPopulateRowsCompleted != null)
+                {
+                    NotifyAbstractParentPopulateRowsCompleted.Invoke();
                 }
             }
             catch (Exception e)

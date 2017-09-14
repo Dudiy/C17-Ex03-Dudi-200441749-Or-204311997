@@ -29,7 +29,7 @@ namespace C17_Ex01_Dudi_200441749_Or_204311997
             }
             catch (Exception ex)
             {
-                MessageBox.Show(string.Format("error while creating details form: {0}", ex.Message));
+                MessageBox.Show(string.Format("Error while creating details form: {0}", ex.Message));
             }
         }
     }
