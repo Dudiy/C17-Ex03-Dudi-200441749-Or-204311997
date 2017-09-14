@@ -1,0 +1,11 @@
+==========================Exercise Checking Report==========================
+Exercise No...........: 3
+First Student Details.: 200441749 - Dudi Yecheskel
+Second Student Details: 204311997 - Or Mantzur
+Delivery Date.........: 
+Delivered In Delay....: 
+Delay Reason..........: 
+Visual Studio Version.: 2017
+Comments..............: FbGraphApiWrapper.dll and Facebook.dll need to be added to the folder
+						where the .sln file is for the program to work
+=======================End Exercise Checking Report=========================
