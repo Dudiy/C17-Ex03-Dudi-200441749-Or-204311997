@@ -54,6 +54,7 @@
     <Compile Include="Adapter\eFacebookCollectionType.cs" />
     <Compile Include="Adapter\IFacebookCollection.cs" />
     <Compile Include="DataTables\IRowsPopulatedObserver.cs" />
+    <Compile Include="FilterPhotos.cs" />
     <Compile Include="Forms\DetailsFormFactory.cs" />
     <Compile Include="Forms\FormAlbumsSelector.cs">
       <SubType>Form</SubType>

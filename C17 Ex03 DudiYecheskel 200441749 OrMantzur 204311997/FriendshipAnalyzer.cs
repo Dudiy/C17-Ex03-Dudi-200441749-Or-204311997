@@ -65,41 +65,41 @@ namespace C17_Ex01_Dudi_200441749_Or_204311997
         // ======================================================= Strategy ===========================================
 
         // by default we get back all photos
-        public Func<Photo, bool> FilterPhoto { get; set; } = (photo) => true;
+        //public Func<Photo, bool> FilterPhoto { get; set; } = (photo) => true;
 
-        public FacebookObjectCollection<Photo> GetFilterPhotos(FacebookObjectCollection<Album> i_Album)
-        {
-            FacebookObjectCollection<Photo> filterPhotos = new FacebookObjectCollection<Photo>();
+        //public FacebookObjectCollection<Photo> GetFilterPhotos(FacebookObjectCollection<Album> i_Album)
+        //{
+        //    FacebookObjectCollection<Photo> filterPhotos = new FacebookObjectCollection<Photo>();
 
-            if(i_Album.Count > 0)
-            {
-                foreach (Album album in i_Album)
-                {
-                    FacebookObjectCollection<Photo> filterPhotosInAlbum = GetFilterPhotos(album.Photos);
-                    foreach (Photo photo in filterPhotosInAlbum)
-                    {
-                        filterPhotos.Add(photo);
-                    }
-                }
-            }
+        //    if(i_Album.Count > 0)
+        //    {
+        //        foreach (Album album in i_Album)
+        //        {
+        //            FacebookObjectCollection<Photo> filterPhotosInAlbum = GetFilterPhotos(album.Photos);
+        //            foreach (Photo photo in filterPhotosInAlbum)
+        //            {
+        //                filterPhotos.Add(photo);
+        //            }
+        //        }
+        //    }
 
-            return filterPhotos;
-        }
+        //    return filterPhotos;
+        //}
 
-        public FacebookObjectCollection<Photo> GetFilterPhotos(FacebookObjectCollection<Photo> i_Photos)
-        {
-            FacebookObjectCollection<Photo> filterPhotos = new FacebookObjectCollection<Photo>();
+        //public FacebookObjectCollection<Photo> GetFilterPhotos(FacebookObjectCollection<Photo> i_Photos)
+        //{
+        //    FacebookObjectCollection<Photo> filterPhotos = new FacebookObjectCollection<Photo>();
 
-            foreach (Photo photo in i_Photos)
-            {
-                if (FilterPhoto.Invoke(photo))
-                {
-                    filterPhotos.Add(photo);
-                }
-            }
+        //    foreach (Photo photo in i_Photos)
+        //    {
+        //        if (FilterPhoto.Invoke(photo))
+        //        {
+        //            filterPhotos.Add(photo);
+        //        }
+        //    }
 
-            return filterPhotos;
-        }
+        //    return filterPhotos;
+        //}
 
         //// good
         //public FacebookObjectCollection<Photo> PhotosTaggedTogether(FacebookObjectCollection<Photo> i_PhotosTaggedIn)
@@ -154,6 +154,25 @@ namespace C17_Ex01_Dudi_200441749_Or_204311997
         // ======================================================= END ===========================================
 
 
+        // ======================================================= Option 2 ===========================================
+
+        private FilterPhotos m_FilterPhotos = new FilterPhotos();
+
+        public FacebookObjectCollection<Photo> PhotosTaggedTogether(FacebookObjectCollection<Photo> i_PhotosTaggedIn)
+        {
+            m_FilterPhotos.FilterPhoto = photo => (photo.Tags != null && photo.Tags.Find(tag => tag.User.Id == Friend.Id) != null);
+
+            return m_FilterPhotos.GetFilterPhotos(i_PhotosTaggedIn);
+        }
+
+        public FacebookObjectCollection<Photo> GetPhotosFromAlbumsUserIsTaggedIn(User i_Tagged, FacebookObjectCollection<Album> i_Albums)
+        {
+            m_FilterPhotos.FilterPhoto = photo => (photo.Tags != null && photo.Tags.Find(tag => tag.User.Id == i_Tagged.Id) != null);
+
+            return m_FilterPhotos.GetFilterPhotos(i_Albums);
+        }
+
+        // ======================================================= END ===========================================
 
 
 
