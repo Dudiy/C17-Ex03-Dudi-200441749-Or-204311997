@@ -21,6 +21,7 @@ namespace C17_Ex01_Dudi_200441749_Or_204311997
         private bool m_FinishedFetchingComments;
         private bool m_FinishedFetchingLikes;
         private FacebookObjectCollection<Photo> m_AllPhotos;
+        private FilterPhotos m_FilterPhotos = new FilterPhotos();
 
         public event Action FinishedFetchingLikesAndComments;
 
@@ -57,8 +58,6 @@ namespace C17_Ex01_Dudi_200441749_Or_204311997
                 return m_AllPhotos;
             }
         }
-
-        private FilterPhotos m_FilterPhotos = new FilterPhotos();
 
         public FacebookObjectCollection<Photo> PhotosTaggedTogether(FacebookObjectCollection<Photo> i_PhotosTaggedIn)
         {
