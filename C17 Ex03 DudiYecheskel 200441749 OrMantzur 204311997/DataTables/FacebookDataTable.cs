@@ -34,13 +34,13 @@ namespace C17_Ex01_Dudi_200441749_Or_204311997.DataTables
             // all tables initially have a column that holds the current row object displayed
             DataTable.Columns.Add("ObjectDisplayed", typeof(object));
             // only the abstract parent can invoke an event
-            NotifyAbstractParentPopulateRowsCompleted += () =>
-                {
-                    if (PopulateRowsCompleted != null)
-                    {
-                        PopulateRowsCompleted.Invoke();
-                    }
-                };
+            NotifyAbstractParentPopulateRowsCompleted += NotifyAllRowsPopulatedObservers;
+                //{
+                //    if (PopulateRowsCompleted != null)
+                //    {
+                //        PopulateRowsCompleted.Invoke();
+                //    }
+                //};
             InitColumns();
         }
 
@@ -69,5 +69,29 @@ namespace C17_Ex01_Dudi_200441749_Or_204311997.DataTables
         protected abstract void PopulateRowsImplementation(FacebookObjectCollection<FacebookObject> i_Collection);
 
         protected abstract void InitColumns();
+
+        // ========================================= Observer ====================================
+        private readonly List<IRowsPopulatedObserver> r_RowsPopulatedObservers = new List<IRowsPopulatedObserver>();
+
+        public void AddRowsPopulatedObserver(IRowsPopulatedObserver i_NewObserver)
+        {
+            this.r_RowsPopulatedObservers.Add(i_NewObserver);
+        }
+
+        public void RemoveRowsPopulatedObserver(IRowsPopulatedObserver i_ObserverToRemove)
+        {
+            if (this.r_RowsPopulatedObservers.Contains(i_ObserverToRemove))
+            {
+                this.r_RowsPopulatedObservers.Remove(i_ObserverToRemove);
+            }
+        }
+
+        public void NotifyAllRowsPopulatedObservers()
+        {
+            foreach (IRowsPopulatedObserver observer in r_RowsPopulatedObservers)
+            {
+                observer.AllRowsUpdated();
+            }
+        }
     }
 }

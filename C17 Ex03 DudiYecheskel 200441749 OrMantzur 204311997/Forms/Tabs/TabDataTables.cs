@@ -13,7 +13,7 @@ using FacebookWrapper.ObjectModel;
 
 namespace C17_Ex01_Dudi_200441749_Or_204311997.Forms.Tabs
 {
-    public partial class TabDataTables : UserControl
+    public partial class TabDataTables : UserControl, IRowsPopulatedObserver
     {
         private FacebookDataTableManager m_DataTableManager;
         private FacebookDataTable m_DataTableBindedToView;
@@ -31,7 +31,7 @@ namespace C17_Ex01_Dudi_200441749_Or_204311997.Forms.Tabs
 
         private void initializeTab()
         {
-            m_DataTableManager = new FacebookDataTableManager(() => MessageBox.Show("All rows populated"));    
+            m_DataTableManager = new FacebookDataTableManager(this);    
             initComboBoxDataTableBindingSelection();
         }
 
@@ -165,6 +165,11 @@ namespace C17_Ex01_Dudi_200441749_Or_204311997.Forms.Tabs
         private void timerDataTables_Tick(object i_Sender, EventArgs i_Args)
         {
             this.refreshDataGridView();
+        }
+
+        public void AllRowsUpdated()
+        {
+            MessageBox.Show("All rows were updated");
         }
     }
 }
