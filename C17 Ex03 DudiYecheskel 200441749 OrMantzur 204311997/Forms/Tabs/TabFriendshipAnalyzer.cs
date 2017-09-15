@@ -20,9 +20,6 @@ namespace C17_Ex01_Dudi_200441749_Or_204311997.Forms.Tabs
     {
         private FriendshipAnalyzer m_FriendshipAnalyzer;
         private Action FriendSelectionChanged;
-        //private Func<Photo, bool> PhotosTaggedTogetherStrategy;
-        ////private Func<Photo, bool> PhotosOfFriendInMyPhotosStrategy;
-        //private Func<Photo, bool> PhotosOfMeInFriendsPhotosStrategy;
 
         public TabFriendshipAnalyzer()
         {
@@ -41,11 +38,6 @@ namespace C17_Ex01_Dudi_200441749_Or_204311997.Forms.Tabs
             this.setEventHandlers();
             this.m_FriendshipAnalyzer = new FriendshipAnalyzer();
             this.flowLayoutPanelExtenderForFacebookFriends.Update(this.friendshipAnalyzerFriendsDockPhoto_MouseClick);
-            //PhotosTaggedTogetherStrategy = photo =>
-            //    photo.Tags != null && photo.Tags.Find(tag => tag.User.Id == m_FriendshipAnalyzer.Friend.Id) != null;
-            ////PhotosOfFriendInMyPhotosStrategy = PhotosTaggedTogetherStrategy;
-            //PhotosOfMeInFriendsPhotosStrategy = photo =>
-            //      photo.Tags != null && photo.Tags.Find(tag => tag.User.Id == FacebookApplication.LoggedInUser.Id) != null;
         }
 
         protected virtual void OnFriendSelectionChanged()
@@ -122,9 +114,6 @@ this.m_FriendshipAnalyzer.CommentsByFriend.Count);
             IFacebookCollection<Photo> photosTaggedInAdapter = new FacebookCollectionAdapter<Photo>(eFacebookCollectionType.PhotosTaggedIn);
             FacebookObjectCollection<FacebookObject> boxPhotosTaggedIn = photosTaggedInAdapter.FetchDataWithProgressBar();
             FacebookObjectCollection<Photo> photosTaggedIn = photosTaggedInAdapter.UnboxCollection(boxPhotosTaggedIn);
-
-            //m_FriendshipAnalyzer.FilterPhoto = PhotosTaggedTogetherStrategy;
-            //FacebookObjectCollection<Photo> photosTaggedTogether = this.m_FriendshipAnalyzer.GetFilterPhotos(photosTaggedIn);
             FacebookObjectCollection<Photo> photosTaggedTogether = this.m_FriendshipAnalyzer.PhotosTaggedTogether(photosTaggedIn);
 
             this.treeViewTaggedTogether.SetValues(photosTaggedTogether, TreeViewExtenderForFacebookPhotos.eGroupBy.Uploader);
@@ -133,9 +122,6 @@ this.m_FriendshipAnalyzer.CommentsByFriend.Count);
         private void fetchPhotosOfFriendInMyPhotos()
         {
             FacebookObjectCollection<Album> albums = this.fetchAlbums(FacebookApplication.LoggedInUser);
-
-            //m_FriendshipAnalyzer.FilterPhoto = PhotosTaggedTogetherStrategy;
-            //FacebookObjectCollection < Photo> photosOfFriend = this.m_FriendshipAnalyzer.GetFilterPhotos(albums);
             FacebookObjectCollection<Photo> photosOfFriend = this.m_FriendshipAnalyzer.GetPhotosFromAlbumsUserIsTaggedIn(this.m_FriendshipAnalyzer.Friend, albums);
 
             this.treeViewPhotosOfFriendInMyPhotos.SetValues(photosOfFriend, TreeViewExtenderForFacebookPhotos.eGroupBy.Album);
@@ -158,9 +144,6 @@ this.m_FriendshipAnalyzer.CommentsByFriend.Count);
         private void fetchPhotosOfMeInFriendsPhotos()
         {
             FacebookObjectCollection<Album> albums = this.fetchAlbums(this.m_FriendshipAnalyzer.Friend);
-
-            //m_FriendshipAnalyzer.FilterPhoto = PhotosOfMeInFriendsPhotosStrategy;
-            //FacebookObjectCollection<Photo> photos = this.m_FriendshipAnalyzer.GetFilterPhotos(albums);
             FacebookObjectCollection<Photo> photos = this.m_FriendshipAnalyzer.GetPhotosFromAlbumsUserIsTaggedIn(FacebookApplication.LoggedInUser, albums);
             this.treeViewPhotosOfFriendIAmTaggedIn.SetValues(photos, TreeViewExtenderForFacebookPhotos.eGroupBy.Album);
         }
@@ -225,9 +208,6 @@ this.m_FriendshipAnalyzer.CommentsByFriend.Count);
             IFacebookCollection<Photo> photosTaggedInAdapter = new FacebookCollectionAdapter<Photo>(eFacebookCollectionType.PhotosTaggedIn);
             FacebookObjectCollection<FacebookObject> boxPhotosTaggedIn = photosTaggedInAdapter.FetchDataWithProgressBar();
             FacebookObjectCollection<Photo> photosTaggedIn = photosTaggedInAdapter.UnboxCollection(boxPhotosTaggedIn);
-
-            //m_FriendshipAnalyzer.FilterPhoto = PhotosTaggedTogetherStrategy;
-            //FacebookObjectCollection<Photo> photosTaggedTogether = this.m_FriendshipAnalyzer.GetFilterPhotos(photosTaggedIn);
             FacebookObjectCollection<Photo> photosTaggedTogether = this.m_FriendshipAnalyzer.PhotosTaggedTogether(photosTaggedIn);
             Photo mostRecentTaggedTogether = this.m_FriendshipAnalyzer.GetMostRecentPhotoTaggedTogether(photosTaggedTogether);
 
