@@ -15,10 +15,10 @@ namespace C17_Ex01_Dudi_200441749_Or_204311997.DataTables
     public abstract class FacebookDataTable : IDisplayableObjectHolder
     {
         protected readonly object r_PopulateRowsLock = new object();
-
         private readonly FacebookObjectDisplayer r_FacebookObjectDisplayer = new FacebookObjectDisplayer();
-
-        public event Action PopulateRowsCompleted;
+        private readonly List<IRowsPopulatedObserver> r_RowsPopulatedObservers = new List<IRowsPopulatedObserver>();
+        // this can be used instead of using interface for observer implementation
+        //public event Action PopulateRowsCompleted;
 
         protected readonly Action NotifyAbstractParentPopulateRowsCompleted;
 
@@ -34,13 +34,7 @@ namespace C17_Ex01_Dudi_200441749_Or_204311997.DataTables
             // all tables initially have a column that holds the current row object displayed
             DataTable.Columns.Add("ObjectDisplayed", typeof(object));
             // only the abstract parent can invoke an event
-            NotifyAbstractParentPopulateRowsCompleted += NotifyAllRowsPopulatedObservers;
-                //{
-                //    if (PopulateRowsCompleted != null)
-                //    {
-                //        PopulateRowsCompleted.Invoke();
-                //    }
-                //};
+            NotifyAbstractParentPopulateRowsCompleted += notifyAllRowsPopulatedObservers;
             InitColumns();
         }
 
@@ -70,9 +64,7 @@ namespace C17_Ex01_Dudi_200441749_Or_204311997.DataTables
 
         protected abstract void InitColumns();
 
-        // ========================================= Observer ====================================
-        private readonly List<IRowsPopulatedObserver> r_RowsPopulatedObservers = new List<IRowsPopulatedObserver>();
-
+        // ========================================= Observer Methods ====================================
         public void AddRowsPopulatedObserver(IRowsPopulatedObserver i_NewObserver)
         {
             this.r_RowsPopulatedObservers.Add(i_NewObserver);
@@ -86,7 +78,7 @@ namespace C17_Ex01_Dudi_200441749_Or_204311997.DataTables
             }
         }
 
-        public void NotifyAllRowsPopulatedObservers()
+        private void notifyAllRowsPopulatedObservers()
         {
             foreach (IRowsPopulatedObserver observer in r_RowsPopulatedObservers)
             {
