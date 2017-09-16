@@ -43,7 +43,6 @@ namespace C17_Ex01_Dudi_200441749_Or_204311997
             {
                 stream = new FileStream(k_SettingsFilePath, FileMode.Open);
                 XmlSerializer serializer = new XmlSerializer(typeof(AppSettings));
-
                 appSettings = serializer.Deserialize(stream) as AppSettings;
             }
             catch

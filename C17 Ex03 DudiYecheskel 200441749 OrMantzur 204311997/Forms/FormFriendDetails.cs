@@ -32,6 +32,7 @@ r_Friend.FirstName);
                 labelBirthdayTitle.Visible = false;
                 labelBirthday.Visible = false;
             }
+
             userBindingSource.DataSource = r_Friend;
         }
 

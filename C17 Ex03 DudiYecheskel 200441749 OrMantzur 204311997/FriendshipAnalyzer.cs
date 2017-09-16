@@ -21,9 +21,7 @@ namespace C17_Ex01_Dudi_200441749_Or_204311997
         private bool m_FinishedFetchingComments;
         private bool m_FinishedFetchingLikes;
         private FacebookObjectCollection<Photo> m_AllPhotos;
-
         public event Action FinishedFetchingLikesAndComments;
-
         public Dictionary<Comment, Photo> CommentsByFriend { get; }
 
         public FacebookObjectCollection<Photo> PhotosFriendLiked { get; }
@@ -161,87 +159,3 @@ namespace C17_Ex01_Dudi_200441749_Or_204311997
         }
     }
 }
-// TODO del
-
-//public FacebookObjectCollection<Photo> GetFilterPhotos(FacebookObjectCollection<Album> i_Album)
-//{
-//    FacebookObjectCollection<Photo> filterPhotos = new FacebookObjectCollection<Photo>();
-
-//    if(i_Album.Count > 0)
-//    {
-//        foreach (Album album in i_Album)
-//        {
-//            FacebookObjectCollection<Photo> filterPhotosInAlbum = GetFilterPhotos(album.Photos);
-//            foreach (Photo photo in filterPhotosInAlbum)
-//            {
-//                filterPhotos.Add(photo);
-//            }
-//        }
-//    }
-
-//    return filterPhotos;
-//}
-
-//public FacebookObjectCollection<Photo> GetFilterPhotos(FacebookObjectCollection<Photo> i_Photos)
-//{
-//    FacebookObjectCollection<Photo> filterPhotos = new FacebookObjectCollection<Photo>();
-
-//    foreach (Photo photo in i_Photos)
-//    {
-//        if (FilterPhoto.Invoke(photo))
-//        {
-//            filterPhotos.Add(photo);
-//        }
-//    }
-
-//    return filterPhotos;
-//}
-
-//// good
-//public FacebookObjectCollection<Photo> PhotosTaggedTogether(FacebookObjectCollection<Photo> i_PhotosTaggedIn)
-//{
-//    FacebookObjectCollection<Photo> photosTaggedTogether = new FacebookObjectCollection<Photo>();
-
-//    foreach (Photo photo in i_PhotosTaggedIn)
-//    {
-
-//        // TODO 
-//        //i_PromoteProgressBar.Invoke();
-
-
-//        if (photo.Tags != null && photo.Tags.Find(tag => tag.User.Id == Friend.Id) != null)
-//        {
-//            photosTaggedTogether.Add(photo);
-//        }
-//    }
-
-//    return photosTaggedTogether;
-//}
-
-//// good
-//public FacebookObjectCollection<Photo> GetPhotosFromAlbumsUserIsTaggedIn(User i_Tagged, FacebookObjectCollection<Album> i_Albums)
-//{
-//    FacebookObjectCollection<Photo> photos = new FacebookObjectCollection<Photo>();
-
-//    if (i_Albums.Count > 0)
-//    {
-//        foreach (Album album in i_Albums)
-//        {
-//            foreach (Photo photo in album.Photos)
-//            {
-
-//                if (PhotoFilter.Invoke(photo) != null)
-//                {
-//                    PhotosFriendLiked.Add(photo);
-//                }
-
-//                //if (photo.Tags != null && photo.Tags.Find(tag => tag.User.Id == i_Tagged.Id) != null)
-//                //{
-//                //    photos.Add(photo);
-//                //}
-//            }
-//        }
-//    }
-
-//    return photos;
-//}

@@ -88,7 +88,6 @@ namespace C17_Ex01_Dudi_200441749_Or_204311997.Forms.Tabs
                     {
                         panelLastPost.Invoke(new Action(() => setLastPostControls(null)));
                         FacebookApplication.LoggedInUser.ReFetch("posts");
-
                         Post lastPost = FacebookApplication.LoggedInUser.Posts.GetMostRecentPost();
                         if (lastPost != null)
                         {
@@ -255,7 +254,6 @@ namespace C17_Ex01_Dudi_200441749_Or_204311997.Forms.Tabs
             try
             {
                 OpenFileDialog file = new OpenFileDialog();
-
                 if (file.ShowDialog() == DialogResult.OK)
                 {
                     this.m_PostPicturePath = Path.GetFullPath(file.FileName);

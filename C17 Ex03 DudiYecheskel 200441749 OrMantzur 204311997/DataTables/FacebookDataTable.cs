@@ -21,9 +21,7 @@ namespace C17_Ex01_Dudi_200441749_Or_204311997.DataTables
         private readonly List<IRowsPopulatedObserver> r_RowsPopulatedObservers = new List<IRowsPopulatedObserver>();
         // this can be used instead of using interface for observer implementation
         // public event Action PopulateRowsCompleted;
-
         protected readonly Action NotifyAbstractParentPopulateRowsCompleted;
-
         public int TotalRows { get; protected set; }
 
         public DataTable DataTable { get; }

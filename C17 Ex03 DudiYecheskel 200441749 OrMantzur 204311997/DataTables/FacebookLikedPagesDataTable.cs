@@ -26,7 +26,6 @@ namespace C17_Ex01_Dudi_200441749_Or_204311997.DataTables
                 foreach (FacebookObject facebookObject in i_LikedPages)
                 {
                     Page page = facebookObject as Page;
-
                     if (page != null)
                     {
                         DataTable.Rows.Add(
