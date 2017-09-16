@@ -8,11 +8,10 @@
 using System;
 using System.Windows.Forms;
 using FacebookWrapper.ObjectModel;
+using C17_Ex01_Dudi_200441749_Or_204311997.Forms;
 
 namespace C17_Ex01_Dudi_200441749_Or_204311997.ControlsAndProxies
 {
-    using C17_Ex01_Dudi_200441749_Or_204311997.Forms;
-
     public class TreeViewExtenderForFacebookPhotos : TreeView
     {
         public enum eGroupBy

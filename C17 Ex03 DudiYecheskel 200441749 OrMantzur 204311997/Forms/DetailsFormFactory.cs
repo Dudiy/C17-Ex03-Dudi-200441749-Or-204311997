@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 using FacebookWrapper.ObjectModel;
 
@@ -11,7 +8,7 @@ namespace C17_Ex01_Dudi_200441749_Or_204311997.Forms
     {
         public static Form CreateDetailesForm(object i_ObjectToDisplay)
         {
-            Form formCreated = null;
+            Form formCreated;
 
             if (i_ObjectToDisplay is Photo)
             {

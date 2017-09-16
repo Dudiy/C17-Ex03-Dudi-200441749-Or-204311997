@@ -13,7 +13,6 @@ using C17_Ex01_Dudi_200441749_Or_204311997.Properties;
 using C17_Ex01_Dudi_200441749_Or_204311997.ControlsAndProxies;
 using FacebookWrapper.ObjectModel;
 
-
 namespace C17_Ex01_Dudi_200441749_Or_204311997.Forms.Tabs
 {
     public partial class TabFriendshipAnalyzer : UserControl

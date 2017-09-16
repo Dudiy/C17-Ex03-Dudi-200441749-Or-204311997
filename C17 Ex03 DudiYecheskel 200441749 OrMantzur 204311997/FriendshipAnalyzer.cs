@@ -21,7 +21,9 @@ namespace C17_Ex01_Dudi_200441749_Or_204311997
         private bool m_FinishedFetchingComments;
         private bool m_FinishedFetchingLikes;
         private FacebookObjectCollection<Photo> m_AllPhotos;
+
         public event Action FinishedFetchingLikesAndComments;
+
         public Dictionary<Comment, Photo> CommentsByFriend { get; }
 
         public FacebookObjectCollection<Photo> PhotosFriendLiked { get; }
@@ -132,7 +134,6 @@ namespace C17_Ex01_Dudi_200441749_Or_204311997
             }
         }
 
-        // IEnumerator
         public Photo GetMostRecentPhotoTaggedTogether(FacebookObjectCollection<Photo> i_PhotosTaggedTogether)
         {
             Photo mostRecentPhoto;

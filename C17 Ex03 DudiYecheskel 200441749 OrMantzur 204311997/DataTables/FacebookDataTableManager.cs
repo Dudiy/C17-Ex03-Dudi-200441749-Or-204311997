@@ -10,8 +10,6 @@ using System.Collections.Generic;
 
 namespace C17_Ex01_Dudi_200441749_Or_204311997.DataTables
 {
-    using System.Windows.Forms;
-
     public class FacebookDataTableManager
     {
         private readonly List<FacebookDataTable> r_DataTables = new List<FacebookDataTable>();

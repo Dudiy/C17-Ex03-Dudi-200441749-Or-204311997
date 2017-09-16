@@ -16,8 +16,6 @@ using FacebookWrapper.ObjectModel;
 
 namespace C17_Ex01_Dudi_200441749_Or_204311997.Forms.Tabs
 {
-    using System.Collections.Generic;
-
     public partial class TabAboutMe : UserControl
     {
         private const bool k_UseCollectionAdapter = true;

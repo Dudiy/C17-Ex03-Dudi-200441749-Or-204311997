@@ -8,11 +8,10 @@
 using System;
 using System.Linq;
 using FacebookWrapper.ObjectModel;
+using C17_Ex01_Dudi_200441749_Or_204311997.Forms;
 
 namespace C17_Ex01_Dudi_200441749_Or_204311997.Adapter
 {
-    using C17_Ex01_Dudi_200441749_Or_204311997.Forms;
-
     internal class FacebookCollectionAdapter<T> : IFacebookCollection<T>
         where T : class
     {

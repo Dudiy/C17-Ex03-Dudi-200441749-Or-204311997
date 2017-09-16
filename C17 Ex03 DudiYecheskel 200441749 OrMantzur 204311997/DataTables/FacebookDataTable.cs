@@ -7,8 +7,8 @@
 */
 using System;
 using System.Data;
-using FacebookWrapper.ObjectModel;
 using System.Collections.Generic;
+using FacebookWrapper.ObjectModel;
 
 namespace C17_Ex01_Dudi_200441749_Or_204311997.DataTables
 {
@@ -17,11 +17,9 @@ namespace C17_Ex01_Dudi_200441749_Or_204311997.DataTables
         protected readonly object r_PopulateRowsLock = new object();
         // Visitor
         private readonly FacebookObjectDisplayer r_FacebookObjectDisplayer = new FacebookObjectDisplayer();
-        // observers list
-        private readonly List<IRowsPopulatedObserver> r_RowsPopulatedObservers = new List<IRowsPopulatedObserver>();
-        // this can be used instead of using interface for observer implementation
-        // public event Action PopulateRowsCompleted;
+
         protected readonly Action NotifyAbstractParentPopulateRowsCompleted;
+
         public int TotalRows { get; protected set; }
 
         public DataTable DataTable { get; }
@@ -66,6 +64,10 @@ namespace C17_Ex01_Dudi_200441749_Or_204311997.DataTables
         }
 
         // ========================================= Observer Methods ====================================
+        // observers list
+        // this can be used instead of using interface for observer implementation: public event Action PopulateRowsCompleted;
+        private readonly List<IRowsPopulatedObserver> r_RowsPopulatedObservers = new List<IRowsPopulatedObserver>();
+        
         public void AddRowsPopulatedObserver(IRowsPopulatedObserver i_NewObserver)
         {
             this.r_RowsPopulatedObservers.Add(i_NewObserver);

@@ -28,9 +28,9 @@ namespace C17_Ex01_Dudi_200441749_Or_204311997.Forms
             ImageUrl = i_ImageUrl;
         }
 
-        protected override void OnShown(EventArgs e)
+        protected override void OnShown(EventArgs i_Args)
         {
-            base.OnShown(e);
+            base.OnShown(i_Args);
             Text = r_FormTitle;
             pictureBox.LoadAsync(ImageUrl);
         }
