@@ -15,10 +15,12 @@ namespace C17_Ex01_Dudi_200441749_Or_204311997.DataTables
     public abstract class FacebookDataTable : IDisplayableObjectHolder
     {
         protected readonly object r_PopulateRowsLock = new object();
+        // Visitor
         private readonly FacebookObjectDisplayer r_FacebookObjectDisplayer = new FacebookObjectDisplayer();
+        // observers list
         private readonly List<IRowsPopulatedObserver> r_RowsPopulatedObservers = new List<IRowsPopulatedObserver>();
         // this can be used instead of using interface for observer implementation
-        //public event Action PopulateRowsCompleted;
+        // public event Action PopulateRowsCompleted;
 
         protected readonly Action NotifyAbstractParentPopulateRowsCompleted;
 
@@ -43,6 +45,10 @@ namespace C17_Ex01_Dudi_200441749_Or_204311997.DataTables
             get { return DataTable.TableName; }
         }
 
+        protected abstract void InitColumns();
+
+        protected abstract void PopulateRowsImplementation(FacebookObjectCollection<FacebookObject> i_Collection);
+
         // adds all FacebookObjects of the given collection that are of type T to the data table rows
         public virtual void PopulateRows(FacebookObjectCollection<FacebookObject> i_Collection)
         {
@@ -54,15 +60,12 @@ namespace C17_Ex01_Dudi_200441749_Or_204311997.DataTables
                 }
             }
         }
-
+        
+        // ========================================= Vistor Method ====================================
         public void DisplaySelectedObject()
         {
             r_FacebookObjectDisplayer.DisplayObject(this);
         }
-
-        protected abstract void PopulateRowsImplementation(FacebookObjectCollection<FacebookObject> i_Collection);
-
-        protected abstract void InitColumns();
 
         // ========================================= Observer Methods ====================================
         public void AddRowsPopulatedObserver(IRowsPopulatedObserver i_NewObserver)

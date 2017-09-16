@@ -60,16 +60,16 @@ namespace C17_Ex01_Dudi_200441749_Or_204311997.Forms
         protected override void OnShown(EventArgs i_Args)
         {
             base.OnShown(i_Args);
-            this.postsBindingSource.DataSource = r_Post;
-            this.m_InitNonBindedComponentsThread = FacebookApplication.StartThread(this.initNonBindedComponents);
+            postsBindingSource.DataSource = r_Post;
+            m_InitNonBindedComponentsThread = FacebookApplication.StartThread(this.initNonBindedComponents);
         }
 
         protected override void OnClosing(CancelEventArgs i_Args)
         {
             base.OnClosing(i_Args);
-            if (this.m_InitNonBindedComponentsThread != null && this.m_InitNonBindedComponentsThread.IsAlive)
+            if (m_InitNonBindedComponentsThread != null && m_InitNonBindedComponentsThread.IsAlive)
             {
-                this.m_InitNonBindedComponentsThread.Abort();
+                m_InitNonBindedComponentsThread.Abort();
             }
         }
     }
