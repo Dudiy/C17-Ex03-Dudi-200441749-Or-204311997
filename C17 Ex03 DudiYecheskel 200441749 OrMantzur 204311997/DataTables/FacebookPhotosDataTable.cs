@@ -17,7 +17,6 @@ namespace C17_Ex01_Dudi_200441749_Or_204311997.DataTables
         private Thread m_PopulateRowsThread;
         private Action populateRowsThreadInterrupted;
         private bool m_AbortRunningThread;
-
         public Album[] AlbumsToLoad { get; set; }
 
         internal FacebookPhotosDataTable()
@@ -49,7 +48,6 @@ namespace C17_Ex01_Dudi_200441749_Or_204311997.DataTables
                 foreach (FacebookObject facebookObject in i_MyPhotos)
                 {
                     Photo photo = facebookObject as Photo;
-
                     if (photo != null)
                     {
                         string photoTags = buildTagsString(photo);

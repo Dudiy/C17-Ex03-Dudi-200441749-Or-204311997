@@ -145,6 +145,7 @@ m_FriendshipAnalyzer.CommentsByFriend.Count);
         {
             FacebookObjectCollection<Album> albums = fetchAlbums(m_FriendshipAnalyzer.Friend);
             FacebookObjectCollection<Photo> photos = m_FriendshipAnalyzer.GetPhotosFromAlbumsUserIsTaggedIn(FacebookApplication.LoggedInUser, albums);
+
             treeViewPhotosOfFriendIAmTaggedIn.SetValues(photos, TreeViewExtenderForFacebookPhotos.eGroupBy.Album);
         }
 

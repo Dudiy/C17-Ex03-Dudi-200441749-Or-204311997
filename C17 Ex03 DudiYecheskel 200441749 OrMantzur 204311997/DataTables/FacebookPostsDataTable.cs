@@ -28,7 +28,6 @@ namespace C17_Ex01_Dudi_200441749_Or_204311997.DataTables
                     foreach (FacebookObject facebookObject in i_Posts)
                     {
                         Post post = facebookObject as Post;
-
                         if (post != null)
                         {
                             DataTable.Rows.Add(
