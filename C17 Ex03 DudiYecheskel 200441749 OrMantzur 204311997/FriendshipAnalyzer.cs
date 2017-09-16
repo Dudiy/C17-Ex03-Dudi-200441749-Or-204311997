@@ -21,7 +21,6 @@ namespace C17_Ex01_Dudi_200441749_Or_204311997
         private bool m_FinishedFetchingComments;
         private bool m_FinishedFetchingLikes;
         private FacebookObjectCollection<Photo> m_AllPhotos;
-        private FilterPhotos m_FilterPhotos = new FilterPhotos();
 
         public event Action FinishedFetchingLikesAndComments;
 
@@ -58,19 +57,19 @@ namespace C17_Ex01_Dudi_200441749_Or_204311997
                 return m_AllPhotos;
             }
         }
-         
+
         public FacebookObjectCollection<Photo> PhotosTaggedTogether(FacebookObjectCollection<Photo> i_PhotosTaggedIn)
         {
-            m_FilterPhotos.FilterPhoto = photo => (photo.Tags != null && photo.Tags.Find(tag => tag.User.Id == Friend.Id) != null);
+            Func<Photo, bool> strategyMethod = photo => photo.Tags != null && photo.Tags.Find(tag => tag.User.Id == Friend.Id) != null;
 
-            return m_FilterPhotos.GetFilterPhotos(i_PhotosTaggedIn);
+            return i_PhotosTaggedIn.FilterPhotoColection(strategyMethod);
         }
 
         public FacebookObjectCollection<Photo> GetPhotosFromAlbumsUserIsTaggedIn(User i_UserTagged, FacebookObjectCollection<Album> i_Albums)
         {
-            m_FilterPhotos.FilterPhoto = photo => (photo.Tags != null && photo.Tags.Find(tag => tag.User.Id == i_UserTagged.Id) != null);
+            Func<Photo, bool> strategyMethod = photo => photo.Tags != null && photo.Tags.Find(tag => tag.User.Id == i_UserTagged.Id) != null;
 
-            return m_FilterPhotos.GetFilterPhotos(i_Albums);
+            return i_Albums.FilterAlbumColection(strategyMethod);
         }
 
         public void CountNumberOfPhotosFriendLiked(Action i_PromoteProgressBar)

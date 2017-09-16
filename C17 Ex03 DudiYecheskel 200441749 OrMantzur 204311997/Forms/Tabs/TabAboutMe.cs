@@ -16,6 +16,8 @@ using FacebookWrapper.ObjectModel;
 
 namespace C17_Ex01_Dudi_200441749_Or_204311997.Forms.Tabs
 {
+    using System.Collections.Generic;
+
     public partial class TabAboutMe : UserControl
     {
         private const bool k_UseCollectionAdapter = true;
@@ -86,9 +88,13 @@ namespace C17_Ex01_Dudi_200441749_Or_204311997.Forms.Tabs
                     {
                         this.panelLastPost.Invoke(new Action(() => this.setLastPostControls(null)));
                         FacebookApplication.LoggedInUser.ReFetch("posts");
-                        if (FacebookApplication.LoggedInUser.Posts.Count != 0)
+
+                        Post lastPost = FacebookApplication.LoggedInUser.Posts.GetMostRecentPost();
+                        //if (FacebookApplication.LoggedInUser.Posts.Count != 0) // ~ 1.6 seconds
+                        if (lastPost != null)
                         {
-                            this.panelLastPost.Invoke(new Action(() => this.setLastPostControls(FacebookApplication.LoggedInUser.Posts[0])));
+                            //this.panelLastPost.Invoke(new Action(() => this.setLastPostControls(FacebookApplication.LoggedInUser.Posts[0])));
+                            this.panelLastPost.Invoke(new Action(() => this.setLastPostControls(lastPost)));
                         }
                         else
                         {
