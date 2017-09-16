@@ -80,21 +80,19 @@ namespace C17_Ex01_Dudi_200441749_Or_204311997.Forms.Tabs
 
         private void updateMostRecentPost()
         {
-            lock (this.r_InitLastPostLock)
+            lock (r_InitLastPostLock)
             {
                 if (FacebookApplication.LoggedInUser != null)
                 {
                     try
                     {
-                        this.panelLastPost.Invoke(new Action(() => this.setLastPostControls(null)));
+                        panelLastPost.Invoke(new Action(() => setLastPostControls(null)));
                         FacebookApplication.LoggedInUser.ReFetch("posts");
 
                         Post lastPost = FacebookApplication.LoggedInUser.Posts.GetMostRecentPost();
-                        //if (FacebookApplication.LoggedInUser.Posts.Count != 0) // ~ 1.6 seconds
                         if (lastPost != null)
                         {
-                            //this.panelLastPost.Invoke(new Action(() => this.setLastPostControls(FacebookApplication.LoggedInUser.Posts[0])));
-                            this.panelLastPost.Invoke(new Action(() => this.setLastPostControls(lastPost)));
+                            panelLastPost.Invoke(new Action(() => setLastPostControls(lastPost)));
                         }
                         else
                         {
