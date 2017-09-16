@@ -23,26 +23,26 @@ namespace C17_Ex01_Dudi_200441749_Or_204311997.Forms.Tabs
 
         public TabFriendshipAnalyzer()
         {
-            this.InitializeComponent();
+            InitializeComponent();
         }
 
         protected override void OnHandleCreated(EventArgs i_Args)
         {
             base.OnHandleCreated(i_Args);
-            this.initializeTab();
+            initializeTab();
         }
 
         private void initializeTab()
         {
-            this.FriendSelectionChanged += this.OnFriendSelectionChanged;
-            this.setEventHandlers();
-            this.m_FriendshipAnalyzer = new FriendshipAnalyzer();
-            this.flowLayoutPanelExtenderForFacebookFriends.Update(this.friendshipAnalyzerFriendsDockPhoto_MouseClick);
+            FriendSelectionChanged += OnFriendSelectionChanged;
+            setEventHandlers();
+            m_FriendshipAnalyzer = new FriendshipAnalyzer();
+            flowLayoutPanelExtenderForFacebookFriends.Update(friendshipAnalyzerFriendsDockPhoto_MouseClick);
         }
 
         protected virtual void OnFriendSelectionChanged()
         {
-            User selectedFriend = this.m_FriendshipAnalyzer.Friend;
+            User selectedFriend = m_FriendshipAnalyzer.Friend;
 
             panelGeneralInfo.Visible = false;
             clearAllTreeViews();
@@ -60,51 +60,51 @@ namespace C17_Ex01_Dudi_200441749_Or_204311997.Forms.Tabs
 
         private void friendshipAnalyzerFetchGeneralData()
         {
-            this.buttonFetchGeneralData.Enabled = false;
+            buttonFetchGeneralData.Enabled = false;
             FormProgressBar formProgressBar =
-                new FormProgressBar(2 * this.m_FriendshipAnalyzer.AllPhotos.Count, "statistics") { CancelEnabled = true };
+                new FormProgressBar(2 * m_FriendshipAnalyzer.AllPhotos.Count, "statistics") { CancelEnabled = true };
 
             formProgressBar.Show();
-            this.getMostRecentPhotoTogether();
+            getMostRecentPhotoTogether();
             Thread getLikesThread = FacebookApplication.StartThread(
-                () => this.m_FriendshipAnalyzer.CountNumberOfPhotosFriendLiked(() => formProgressBar.ProgressValue++));
+                () => m_FriendshipAnalyzer.CountNumberOfPhotosFriendLiked(() => formProgressBar.ProgressValue++));
             Thread getCommentsThread = FacebookApplication.StartThread(
-                () => this.m_FriendshipAnalyzer.CountNumberOfPhotosFriendCommented(() => formProgressBar.ProgressValue++));
-            this.FriendSelectionChanged += () => formProgressBar.Close();
+                () => m_FriendshipAnalyzer.CountNumberOfPhotosFriendCommented(() => formProgressBar.ProgressValue++));
+            FriendSelectionChanged += () => formProgressBar.Close();
             formProgressBar.Closing += (i_Sender, i_Args) =>
             {
-                this.FriendSelectionChanged -= () => formProgressBar.Close();
+                FriendSelectionChanged -= () => formProgressBar.Close();
                 if (formProgressBar.DialogResult == DialogResult.Cancel)
                 {
                     getCommentsThread.Abort();
                     getLikesThread.Abort();
                 }
 
-                this.buttonFetchGeneralData.Enabled = true;
+                buttonFetchGeneralData.Enabled = true;
             };
-            this.m_FriendshipAnalyzer.FinishedFetchingLikesAndComments += () =>
+            m_FriendshipAnalyzer.FinishedFetchingLikesAndComments += () =>
             {
-                this.finishedFetchingLikesAndComments();
+                finishedFetchingLikesAndComments();
                 formProgressBar.Close();
             };
         }
 
         private void finishedFetchingLikesAndComments()
         {
-            if (!this.IsDisposed)
+            if (!IsDisposed)
             {
-                this.panelGeneralInfo.Invoke(
+                panelGeneralInfo.Invoke(
                     new Action(() =>
                     {
-                        this.labelNumLikes.Text = string.Format(
+                        labelNumLikes.Text = string.Format(
 "Number of times {0} liked my photos: {1}",
-this.m_FriendshipAnalyzer.Friend.FirstName,
-this.m_FriendshipAnalyzer.PhotosFriendLiked.Count);
-                        this.labelNumComments.Text = string.Format(
+m_FriendshipAnalyzer.Friend.FirstName,
+m_FriendshipAnalyzer.PhotosFriendLiked.Count);
+                        labelNumComments.Text = string.Format(
 "Number of times {0} commented on my photos: {1}",
-this.m_FriendshipAnalyzer.Friend.FirstName,
-this.m_FriendshipAnalyzer.CommentsByFriend.Count);
-                        this.updateCommentsListBox();
+m_FriendshipAnalyzer.Friend.FirstName,
+m_FriendshipAnalyzer.CommentsByFriend.Count);
+                        updateCommentsListBox();
                     }));
             }
         }
@@ -114,17 +114,17 @@ this.m_FriendshipAnalyzer.CommentsByFriend.Count);
             IFacebookCollection<Photo> photosTaggedInAdapter = new FacebookCollectionAdapter<Photo>(eFacebookCollectionType.PhotosTaggedIn);
             FacebookObjectCollection<FacebookObject> boxPhotosTaggedIn = photosTaggedInAdapter.FetchDataWithProgressBar();
             FacebookObjectCollection<Photo> photosTaggedIn = photosTaggedInAdapter.UnboxCollection(boxPhotosTaggedIn);
-            FacebookObjectCollection<Photo> photosTaggedTogether = this.m_FriendshipAnalyzer.PhotosTaggedTogether(photosTaggedIn);
+            FacebookObjectCollection<Photo> photosTaggedTogether = m_FriendshipAnalyzer.PhotosTaggedTogether(photosTaggedIn);
 
-            this.treeViewTaggedTogether.SetValues(photosTaggedTogether, TreeViewExtenderForFacebookPhotos.eGroupBy.Uploader);
+            treeViewTaggedTogether.SetValues(photosTaggedTogether, TreeViewExtenderForFacebookPhotos.eGroupBy.Uploader);
         }
 
         private void fetchPhotosOfFriendInMyPhotos()
         {
-            FacebookObjectCollection<Album> albums = this.fetchAlbums(FacebookApplication.LoggedInUser);
-            FacebookObjectCollection<Photo> photosOfFriend = this.m_FriendshipAnalyzer.GetPhotosFromAlbumsUserIsTaggedIn(this.m_FriendshipAnalyzer.Friend, albums);
+            FacebookObjectCollection<Album> albums = fetchAlbums(FacebookApplication.LoggedInUser);
+            FacebookObjectCollection<Photo> photosOfFriend = m_FriendshipAnalyzer.GetPhotosFromAlbumsUserIsTaggedIn(m_FriendshipAnalyzer.Friend, albums);
 
-            this.treeViewPhotosOfFriendInMyPhotos.SetValues(photosOfFriend, TreeViewExtenderForFacebookPhotos.eGroupBy.Album);
+            treeViewPhotosOfFriendInMyPhotos.SetValues(photosOfFriend, TreeViewExtenderForFacebookPhotos.eGroupBy.Album);
         }
 
         private FacebookObjectCollection<Album> fetchAlbums(User i_User)
@@ -143,17 +143,17 @@ this.m_FriendshipAnalyzer.CommentsByFriend.Count);
 
         private void fetchPhotosOfMeInFriendsPhotos()
         {
-            FacebookObjectCollection<Album> albums = this.fetchAlbums(this.m_FriendshipAnalyzer.Friend);
-            FacebookObjectCollection<Photo> photos = this.m_FriendshipAnalyzer.GetPhotosFromAlbumsUserIsTaggedIn(FacebookApplication.LoggedInUser, albums);
-            this.treeViewPhotosOfFriendIAmTaggedIn.SetValues(photos, TreeViewExtenderForFacebookPhotos.eGroupBy.Album);
+            FacebookObjectCollection<Album> albums = fetchAlbums(m_FriendshipAnalyzer.Friend);
+            FacebookObjectCollection<Photo> photos = m_FriendshipAnalyzer.GetPhotosFromAlbumsUserIsTaggedIn(FacebookApplication.LoggedInUser, albums);
+            treeViewPhotosOfFriendIAmTaggedIn.SetValues(photos, TreeViewExtenderForFacebookPhotos.eGroupBy.Album);
         }
 
         private void setEventHandlers()
         {
-            this.treeViewPhotosOfFriendInMyPhotos.NodeMouseDoubleClick += (i_Sender, i_Args) => this.photoTreeViewDoubleClicked(i_Args.Node);
-            this.treeViewTaggedTogether.NodeMouseDoubleClick += (i_Sender, i_Args) => this.photoTreeViewDoubleClicked(i_Args.Node);
-            this.buttonFetchPhotosOfFriendIAmTaggedIn.Click += (i_Sender, i_Args) => this.fetchPhotosOfMeInFriendsPhotos();
-            this.buttonFetchTaggedTogether.Click += (i_Sender, i_Args) => this.fetchPhotosTaggedTogether();
+            treeViewPhotosOfFriendInMyPhotos.NodeMouseDoubleClick += (i_Sender, i_Args) => photoTreeViewDoubleClicked(i_Args.Node);
+            treeViewTaggedTogether.NodeMouseDoubleClick += (i_Sender, i_Args) => photoTreeViewDoubleClicked(i_Args.Node);
+            buttonFetchPhotosOfFriendIAmTaggedIn.Click += (i_Sender, i_Args) => fetchPhotosOfMeInFriendsPhotos();
+            buttonFetchTaggedTogether.Click += (i_Sender, i_Args) => fetchPhotosTaggedTogether();
         }
 
         private void photoTreeViewDoubleClicked(TreeNode i_SelectedNode)
@@ -188,19 +188,19 @@ this.m_FriendshipAnalyzer.CommentsByFriend.Count);
 
         private void clearAllTreeViews()
         {
-            this.treeViewPhotosOfFriendIAmTaggedIn.Nodes.Clear();
-            this.treeViewPhotosOfFriendInMyPhotos.Nodes.Clear();
-            this.treeViewTaggedTogether.Nodes.Clear();
+            treeViewPhotosOfFriendIAmTaggedIn.Nodes.Clear();
+            treeViewPhotosOfFriendInMyPhotos.Nodes.Clear();
+            treeViewTaggedTogether.Nodes.Clear();
         }
 
         private void buttonFetchMyPhotosFriendIsIn_Click(object i_Sender, EventArgs i_Args)
         {
-            this.fetchPhotosOfFriendInMyPhotos();
+            fetchPhotosOfFriendInMyPhotos();
         }
 
         private void buttonFetchGeneralData_Click(object i_Sender, EventArgs i_Args)
         {
-            this.friendshipAnalyzerFetchGeneralData();
+            friendshipAnalyzerFetchGeneralData();
         }
 
         private void getMostRecentPhotoTogether()
@@ -208,13 +208,13 @@ this.m_FriendshipAnalyzer.CommentsByFriend.Count);
             IFacebookCollection<Photo> photosTaggedInAdapter = new FacebookCollectionAdapter<Photo>(eFacebookCollectionType.PhotosTaggedIn);
             FacebookObjectCollection<FacebookObject> boxPhotosTaggedIn = photosTaggedInAdapter.FetchDataWithProgressBar();
             FacebookObjectCollection<Photo> photosTaggedIn = photosTaggedInAdapter.UnboxCollection(boxPhotosTaggedIn);
-            FacebookObjectCollection<Photo> photosTaggedTogether = this.m_FriendshipAnalyzer.PhotosTaggedTogether(photosTaggedIn);
-            Photo mostRecentTaggedTogether = this.m_FriendshipAnalyzer.GetMostRecentPhotoTaggedTogether(photosTaggedTogether);
+            FacebookObjectCollection<Photo> photosTaggedTogether = m_FriendshipAnalyzer.PhotosTaggedTogether(photosTaggedIn);
+            Photo mostRecentTaggedTogether = m_FriendshipAnalyzer.GetMostRecentPhotoTaggedTogether(photosTaggedTogether);
 
             if (mostRecentTaggedTogether != null)
             {
-                this.pictureBoxMostRecentTaggedTogether.LoadAsync(mostRecentTaggedTogether.PictureNormalURL);
-                this.pictureBoxMostRecentTaggedTogether.Tag = mostRecentTaggedTogether;
+                pictureBoxMostRecentTaggedTogether.LoadAsync(mostRecentTaggedTogether.PictureNormalURL);
+                pictureBoxMostRecentTaggedTogether.Tag = mostRecentTaggedTogether;
             }
         }
 
@@ -231,11 +231,11 @@ this.m_FriendshipAnalyzer.CommentsByFriend.Count);
 
         private void updateCommentsListBox()
         {
-            this.listBoxPhotosCommentedOn.DisplayMember = "Message";
-            this.listBoxPhotosCommentedOn.Items.Clear();
-            foreach (Comment comment in this.m_FriendshipAnalyzer.CommentsByFriend.Keys)
+            listBoxPhotosCommentedOn.DisplayMember = "Message";
+            listBoxPhotosCommentedOn.Items.Clear();
+            foreach (Comment comment in m_FriendshipAnalyzer.CommentsByFriend.Keys)
             {
-                this.listBoxPhotosCommentedOn.Items.Add(new FacebookCommentProxy() { Comment = comment });
+                listBoxPhotosCommentedOn.Items.Add(new FacebookCommentProxy() { Comment = comment });
             }
         }
 
@@ -245,7 +245,7 @@ this.m_FriendshipAnalyzer.CommentsByFriend.Count);
 
             if (selectedComment != null)
             {
-                new FormPhotoDetails(this.m_FriendshipAnalyzer.CommentsByFriend[selectedComment.Comment]).Show();
+                new FormPhotoDetails(m_FriendshipAnalyzer.CommentsByFriend[selectedComment.Comment]).Show();
             }
         }
     }
